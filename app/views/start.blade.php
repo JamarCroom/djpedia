@@ -17,7 +17,7 @@
 <p>
 {{Form::open()}}
 {{Form::label('Search')}}
-{{Form::text('search')}} {{Form::submit("Search")}}
+{{Form::text('search_db')}} {{Form::submit("Search")}}
 {{Form::close()}}
 </p>
 </section>
