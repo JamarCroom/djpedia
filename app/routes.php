@@ -37,16 +37,22 @@ Route::post('/',array('before'=>'csrf'), function()
 
 Route::get('show/$id', function($id)
 {
+	/*
 	$text = DB::table('entry')
 	->join('medias','entry.id','medias_entry_id')
 	->where('entry.id','=',$id)
 	->where('media.media_type','=','text');
 
+*/
 	$audio = Media::find($id)->where('media_type','=','audio');
 	$video = Media::find($id)->where('media_type','=','video');
 	$image = Media::find($id)->where('media_type','=','image');
 
-	Entry::find($id)->medias()->where('media_type','=','text');
-
-	return View::make('search')->with($text)->with($audio)->with($video)->with($image);
+	$texts=Entry::find($id)->medias()->where('media_type','=','text');
+	foreach($texts as $text)
+	{
+		$stringPath = $text['path'];
+	}
+	$stringText = file_get_contents($stringPath);
+	return View::make('search')->with($texts)->with($stringText)->with($audio)->with($video)->with($image);
 });
